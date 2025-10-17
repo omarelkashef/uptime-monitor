@@ -555,7 +555,7 @@ generator: Upptime <https://github.com/upptime/upptime>
           const issues = await octokit.issues.listForRepo({
             owner,
             repo,
-            labels: slug,
+            labels: `${slug}, created-by-upptime`,
             filter: "all",
             state: "open",
             sort: "created",
@@ -593,7 +593,7 @@ generator: Upptime <https://github.com/upptime/upptime>
 - HTTP code: ${result.httpCode}
 - Response time: ${responseTime} ms
 `,
-                labels: ["status", slug, ...(site.tags || [])],
+                labels: ["status", "created-by-upptime" ,slug, ...(site.tags || [])],
               });
               const assignees = [...(config.assignees || []), ...(site.assignees || [])];
               await octokit.issues.addAssignees({
@@ -632,7 +632,7 @@ generator: Upptime <https://github.com/upptime/upptime>
             } else {
               console.log("An issue is already open for this");
             }
-          } else if (issues.data.length) {
+          } else if (issues.data.length) { 
             // If the site just came back up
             await octokit.issues.unlock({
               owner,
